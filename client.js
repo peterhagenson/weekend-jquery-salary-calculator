@@ -9,8 +9,9 @@ function handleReady() {
 // create employees array to collect all added employees
 let employees = [];
 
-// add employee info to employee object
+// adds employee info to employee object
 function addEmp() {
+  // creates employee object to store info from inputs
   let employee = {
     firstName: "",
     lastName: "",
@@ -19,6 +20,7 @@ function addEmp() {
     annualSalary: "",
   };
 
+  //stores info from inputs in the employee object and clears input fields
   let employeeFirstName = $("#firstNameIn").val();
   employee.firstName = employeeFirstName;
   $("#firstNameIn").val("");
