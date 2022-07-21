@@ -9,6 +9,9 @@ function handleReady() {
 // create employees array to collect all added employees
 let employees = [];
 
+// create variable to track monthly cost
+let monthlyCost = 0;
+
 // adds employee info to employee object
 function addEmp() {
   // creates employee object to store info from inputs
@@ -40,6 +43,11 @@ function addEmp() {
   let employeeSalary = $("#salaryIn").val();
   employee.annualSalary = employeeSalary;
   $("#salaryIn").val("");
+
+  let monthlySalary = employeeSalary / 12;
+  monthlyCost += monthlySalary;
+  console.log(monthlySalary);
+  console.log(monthlyCost);
 
   console.log(employee);
   employees.push(employee);
