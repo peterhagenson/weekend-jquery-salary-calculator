@@ -64,6 +64,9 @@ function addEmp() {
 
   $("#totalMonthlyCost").empty();
   $("#totalMonthlyCost").append("Total Monthly: ", totMonthlyCost);
+  if (totMonthlyCost > 20000) {
+    $("#totalMonthlyCost").css("background-color", "red");
+  }
 
   console.log(employee);
   employees.push(employee);
