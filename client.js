@@ -4,6 +4,7 @@ $(handleReady);
 
 function handleReady() {
   $("#submitBtn").on("click", addEmp);
+  $("#tableContainer").on("click", "#deleteBtn", removeRow);
 }
 
 // create employees array to collect all added employees
@@ -57,13 +58,18 @@ function addEmp() {
     <td>${employeeId}</td> 
     <td>${employeeTitle}</td> 
     <td>${employeeSalary}</td> 
+    <td><button id="deleteBtn">Delete</button></td> 
   </tr>
   `);
 
   $("#totalMonthlyCost").empty();
-  $("#totalMonthlyCost").append("Total Monthly:", totMonthlyCost);
+  $("#totalMonthlyCost").append("Total Monthly: ", totMonthlyCost);
 
   console.log(employee);
   employees.push(employee);
   console.log(employees);
+}
+
+function removeRow() {
+  $(this).closest("tr").remove();
 }
