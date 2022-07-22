@@ -4,7 +4,7 @@ $(handleReady);
 
 function handleReady() {
   $("#submitBtn").on("click", addEmp);
-  $("#tableContainer").on("click", "#deleteBtn", removeRow);
+  $("#tableContainer").on("click", "#deleteBtn", removeEmployee);
 }
 
 // create employees array to collect all added employees - NEVER USED
@@ -15,57 +15,57 @@ let totMonthlyCost = 0;
 
 // adds employee info to employee object
 function addEmp() {
-  // creates employee object to store info from inputs
-  //   let employee = {
-  //     firstName: "",
-  //     lastName: "",
-  //     id: "",
-  //     title: "",
-  //     annualSalary: "",
-  //   };
+  //creates employee object to store info from inputs
+  let employee = {
+    firstName: "",
+    lastName: "",
+    id: "",
+    title: "",
+    annualSalary: "",
+  };
 
   //stores info from inputs in the employee object and clears input fields
-  // is it even necessary to store these values in the employee object w/ the way I have this
   let employeeFirstName = $("#firstNameIn").val();
-  //employee.firstName = employeeFirstName;
+  employee.firstName = employeeFirstName;
   $("#firstNameIn").val("");
 
   let employeeLastName = $("#lastNameIn").val();
-  //employee.lastName = employeeLastName;
+  employee.lastName = employeeLastName;
   $("#lastNameIn").val("");
 
   let employeeId = $("#idIn").val();
-  //employee.id = employeeId;
+  employee.id = employeeId;
   $("#idIn").val("");
 
   let employeeTitle = $("#titleIn").val();
-  //employee.title = employeeTitle;
+  employee.title = employeeTitle;
   $("#titleIn").val("");
 
   let employeeSalary = $("#salaryIn").val();
-  //employee.annualSalary = employeeSalary;
+  employee.annualSalary = employeeSalary;
   $("#salaryIn").val("");
 
-  // calculate monthly cost for employee and add it to monthly cost variable
+  //calculate monthly cost for employee and add it to monthly cost variable
   let monthlySalary = employeeSalary / 12;
   totMonthlyCost += monthlySalary;
-  console.log(monthlySalary);
-  console.log(totMonthlyCost);
+  //console.log(monthlySalary);
+  //console.log(totMonthlyCost);
 
-  //push newly created employee object to employees array - ARRAY NOT ACTUALLY USED
-  //employees.push(employee);
+  //push newly created employee object to employees array
+  employees.push(employee);
+  displayEmployees();
 
   // append
-  $("#tableContainer").append(`
-  <tr>  
-    <td>${employeeFirstName}</td> 
-    <td>${employeeLastName}</td> 
-    <td>${employeeId}</td> 
-    <td>${employeeTitle}</td> 
-    <td>${employeeSalary}</td> 
-    <td><button id="deleteBtn">Delete</button></td> 
-  </tr>
-  `);
+  //   $("#tableContainer").append(`
+  //   <tr>
+  //     <td>${employeeFirstName}</td>
+  //     <td>${employeeLastName}</td>
+  //     <td>${employeeId}</td>
+  //     <td>${employeeTitle}</td>
+  //     <td>${employeeSalary}</td>
+  //     <td><button id="deleteBtn">Delete</button></td>
+  //   </tr>
+  //   `);
 
   $("#totalMonthlyCost").empty();
   $("#totalMonthlyCost").append("Total Monthly: $", totMonthlyCost);
@@ -79,8 +79,35 @@ function addEmp() {
   //console.log(employees);
 }
 
-console.log(employees);
+//console.log(employees);
 
-function removeRow() {
+function displayEmployees() {
+  $("#tableContainer").empty();
+  for (let employee of employees) {
+    $("#tableContainer").append(`
+         <tr>
+             <td>${employee.firstName}</td>
+             <td>${employee.lastName}</td>
+             <td class="employeeID">${employee.id}</td>
+             <td>${employee.title}</td>
+             <td>${employee.annualSalary}</td>
+             <td><button id="deleteBtn">Delete</button></td>
+        </tr>
+           `);
+  }
+}
+
+function removeEmployee() {
+  //identify object associated with clicked "delete" button
+  let employeeToRemove = $(this).closest("tr").find(".employeeID").text();
+  for (i = 0; i < employees.length; i++) {
+    if (employeeToRemove === employees[i].id) {
+      //console.log(employeeToRemove);
+      employees.splice(employees[i], 1);
+    }
+  }
+  console.log(employees);
+
+  // remove row in DOM
   $(this).closest("tr").remove();
 }
