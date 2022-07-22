@@ -4,7 +4,7 @@ $(handleReady);
 
 function handleReady() {
   $("#submitBtn").on("click", addEmp);
-  //$("#tableContainer").on("click", "#deleteBtn", removeRow);
+  $("#tableContainer").on("click", "#deleteBtn", removeRow);
 }
 
 // create employees array to collect all added employees - NEVER USED
@@ -53,6 +53,7 @@ function addEmp() {
 
   //push newly created employee object to employees array
   employees.push(employee);
+  displayEmployees();
 
   // append
   //   $("#tableContainer").append(`
@@ -66,19 +67,35 @@ function addEmp() {
   //   </tr>
   //   `);
 
-  //   $("#totalMonthlyCost").empty();
-  //   $("#totalMonthlyCost").append("Total Monthly: $", totMonthlyCost);
-  //   if (totMonthlyCost > 20000) {
-  //     $("#totalMonthlyCost").css("background-color", "red");
-  //     $("#totalMonthlyCost").css("max-width", "200px");
-  //     $("#totalMonthlyCost").css("font-weight", "bold");
-  //   }
+  $("#totalMonthlyCost").empty();
+  $("#totalMonthlyCost").append("Total Monthly: $", totMonthlyCost);
+  if (totMonthlyCost > 20000) {
+    $("#totalMonthlyCost").css("background-color", "red");
+    $("#totalMonthlyCost").css("max-width", "200px");
+    $("#totalMonthlyCost").css("font-weight", "bold");
+  }
 
   //console.log(employee);
   //console.log(employees);
 }
 
 console.log(employees);
+
+function displayEmployees() {
+  $("#tableContainer").empty();
+  for (let employee of employees) {
+    $("#tableContainer").append(`
+         <tr>
+             <td>${employee.firstName}</td>
+             <td>${employee.lastName}</td>
+             <td>${employee.id}</td>
+             <td>${employee.title}</td>
+             <td>${employee.annualSalary}</td>
+             <td><button id="deleteBtn">Delete</button></td>
+        </tr>
+           `);
+  }
+}
 
 function removeRow() {
   $(this).closest("tr").remove();
