@@ -85,7 +85,7 @@ function displayEmployees() {
   $("#tableContainer").empty();
   for (let employee of employees) {
     $("#tableContainer").append(`
-         <tr>
+         <tr class="firstName">
              <td>${employee.firstName}</td>
              <td>${employee.lastName}</td>
              <td>${employee.id}</td>
@@ -98,5 +98,7 @@ function displayEmployees() {
 }
 
 function removeRow() {
+  let employeeToRemove = $(this).closest("tr").find(".firstName").text();
+  console.log(employeeToRemove);
   $(this).closest("tr").remove();
 }
