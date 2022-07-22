@@ -103,6 +103,7 @@ function removeRow() {
   for (i = 0; i < employees.length; i++) {
     if (employeeToRemove === employees[i].id) {
       //console.log(employeeToRemove);
+      employees.splice(employees[i], 1);
     }
   }
   console.log(employees);
