@@ -48,8 +48,8 @@ function addEmp() {
   //calculate monthly cost for employee and add it to monthly cost variable
   let monthlySalary = employeeSalary / 12;
   totMonthlyCost += monthlySalary;
-  console.log(monthlySalary);
-  console.log(totMonthlyCost);
+  //console.log(monthlySalary);
+  //console.log(totMonthlyCost);
 
   //push newly created employee object to employees array
   employees.push(employee);
@@ -79,16 +79,16 @@ function addEmp() {
   //console.log(employees);
 }
 
-console.log(employees);
+//console.log(employees);
 
 function displayEmployees() {
   $("#tableContainer").empty();
   for (let employee of employees) {
     $("#tableContainer").append(`
-         <tr class="firstName">
+         <tr>
              <td>${employee.firstName}</td>
              <td>${employee.lastName}</td>
-             <td>${employee.id}</td>
+             <td class="employeeID">${employee.id}</td>
              <td>${employee.title}</td>
              <td>${employee.annualSalary}</td>
              <td><button id="deleteBtn">Delete</button></td>
@@ -98,7 +98,15 @@ function displayEmployees() {
 }
 
 function removeRow() {
-  let employeeToRemove = $(this).closest("tr").find(".firstName").text();
-  console.log(employeeToRemove);
+  //identify object associated with clicked "delete" button
+  let employeeToRemove = $(this).closest("tr").find(".employeeID").text();
+  for (i = 0; i < employees.length; i++) {
+    if (employeeToRemove === employees[i].id) {
+      //console.log(employeeToRemove);
+    }
+  }
+  console.log(employees);
+
+  // remove row in DOM
   $(this).closest("tr").remove();
 }
