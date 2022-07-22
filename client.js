@@ -7,7 +7,7 @@ function handleReady() {
   $("#tableContainer").on("click", "#deleteBtn", removeRow);
 }
 
-// create employees array to collect all added employees
+// create employees array to collect all added employees - NEVER USED
 let employees = [];
 
 // create variable to track monthly cost
@@ -16,33 +16,34 @@ let totMonthlyCost = 0;
 // adds employee info to employee object
 function addEmp() {
   // creates employee object to store info from inputs
-  let employee = {
-    firstName: "",
-    lastName: "",
-    id: "",
-    title: "",
-    annualSalary: "",
-  };
+  //   let employee = {
+  //     firstName: "",
+  //     lastName: "",
+  //     id: "",
+  //     title: "",
+  //     annualSalary: "",
+  //   };
 
   //stores info from inputs in the employee object and clears input fields
+  // is it even necessary to store these values in the employee object w/ the way I have this
   let employeeFirstName = $("#firstNameIn").val();
-  employee.firstName = employeeFirstName;
+  //employee.firstName = employeeFirstName;
   $("#firstNameIn").val("");
 
   let employeeLastName = $("#lastNameIn").val();
-  employee.lastName = employeeLastName;
+  //employee.lastName = employeeLastName;
   $("#lastNameIn").val("");
 
   let employeeId = $("#idIn").val();
-  employee.id = employeeId;
+  //employee.id = employeeId;
   $("#idIn").val("");
 
   let employeeTitle = $("#titleIn").val();
-  employee.title = employeeTitle;
+  //employee.title = employeeTitle;
   $("#titleIn").val("");
 
   let employeeSalary = $("#salaryIn").val();
-  employee.annualSalary = employeeSalary;
+  //employee.annualSalary = employeeSalary;
   $("#salaryIn").val("");
 
   // calculate monthly cost for employee and add it to monthly cost variable
@@ -51,6 +52,10 @@ function addEmp() {
   console.log(monthlySalary);
   console.log(totMonthlyCost);
 
+  //push newly created employee object to employees array - ARRAY NOT ACTUALLY USED
+  //employees.push(employee);
+
+  // append
   $("#tableContainer").append(`
   <tr>  
     <td>${employeeFirstName}</td> 
@@ -70,10 +75,11 @@ function addEmp() {
     $("#totalMonthlyCost").css("font-weight", "bold");
   }
 
-  console.log(employee);
-  employees.push(employee);
-  console.log(employees);
+  //console.log(employee);
+  //console.log(employees);
 }
+
+console.log(employees);
 
 function removeRow() {
   $(this).closest("tr").remove();
