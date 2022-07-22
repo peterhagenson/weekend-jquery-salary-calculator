@@ -10,7 +10,7 @@ function handleReady() {
 let employees = [];
 
 // create variable to track monthly cost
-let monthlyCost = 0;
+let totMonthlyCost = 0;
 
 // adds employee info to employee object
 function addEmp() {
@@ -44,10 +44,24 @@ function addEmp() {
   employee.annualSalary = employeeSalary;
   $("#salaryIn").val("");
 
+  // calculate monthly cost for employee and add it to monthly cost variable
   let monthlySalary = employeeSalary / 12;
-  monthlyCost += monthlySalary;
+  totMonthlyCost += monthlySalary;
   console.log(monthlySalary);
-  console.log(monthlyCost);
+  console.log(totMonthlyCost);
+
+  $("#tableContainer").append(`
+  <tr>  
+    <td>${employeeFirstName}</td> 
+    <td>${employeeLastName}</td> 
+    <td>${employeeId}</td> 
+    <td>${employeeTitle}</td> 
+    <td>${employeeSalary}</td> 
+  </tr>
+  `);
+
+  $("#totalMonthlyCost").empty();
+  $("#totalMonthlyCost").append("Total Monthly:", totMonthlyCost);
 
   console.log(employee);
   employees.push(employee);
