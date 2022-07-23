@@ -55,36 +55,26 @@ function addEmp() {
   employees.push(employee);
   displayEmployees();
 
-  // append
-  //   $("#tableContainer").append(`
-  //   <tr>
-  //     <td>${employeeFirstName}</td>
-  //     <td>${employeeLastName}</td>
-  //     <td>${employeeId}</td>
-  //     <td>${employeeTitle}</td>
-  //     <td>${employeeSalary}</td>
-  //     <td><button id="deleteBtn">Delete</button></td>
-  //   </tr>
-  //   `);
+  //Call the function that displays monthly cost
   displayMonthlyCost();
 }
 
+// formats and displays monthly cost on the DOM
 function displayMonthlyCost() {
   $("#totalMonthlyCost").css("background-color", "white");
   $("#totalMonthlyCost").empty();
-  $("#totalMonthlyCost").append("Total Monthly: $", totMonthlyCost);
+  $("#totalMonthlyCost").append(
+    "Total Monthly: $",
+    Math.round((totMonthlyCost / 12) * 100) / 100
+  );
   if (totMonthlyCost > 20000) {
     $("#totalMonthlyCost").css("background-color", "red");
     $("#totalMonthlyCost").css("max-width", "200px");
     $("#totalMonthlyCost").css("font-weight", "bold");
   }
-
-  //console.log(employee);
-  //console.log(employees);
 }
 
-//console.log(employees);
-
+// displays new employee as a table row on the DOM
 function displayEmployees() {
   $("#tableContainer").empty();
   for (let employee of employees) {
@@ -101,26 +91,28 @@ function displayEmployees() {
   }
 }
 
+// removes the employee from the employees array
 function removeEmployee() {
-  //identify object associated with clicked "delete" button
+  //identify the ID of the employee object associated with clicked "delete" button
   let employeeToRemove = $(this).closest("tr").find(".employeeID").text();
+
+  // if an employeeToRemove exists, loop through the employees array to see which object contains the ID number of the clicked object, when a match is found, remove that employee object from the employees array
   if (employeeToRemove) {
     for (i = 0; i < employees.length; i++) {
       if (employeeToRemove === employees[i].id) {
-        //console.log(employeeToRemove);
         let removedEmployee = employees.splice(i, 1);
+
+        // calculates the monthly cost that needs to be subtracted from the totMonthlyCosts variable displayed on DOM, and does the subtraction
         let removedMonthlySalary = removedEmployee[0].annualSalary / 12;
         totMonthlyCost = totMonthlyCost - removedMonthlySalary;
         console.log(totMonthlyCost);
-
-        console.log(removedEmployee);
-        console.log(removedMonthlySalary);
       }
+      // call the diplayMonthlyCost function to display the updated monthly cost on the DOM.
       displayMonthlyCost();
     }
-    console.log(employees);
+    // console.log(employees);
   }
 
-  // remove row in DOM
+  // remove employee row in DOM
   $(this).closest("tr").remove();
 }
