@@ -66,7 +66,11 @@ function addEmp() {
   //     <td><button id="deleteBtn">Delete</button></td>
   //   </tr>
   //   `);
+  displayMonthlyCost();
+}
 
+function displayMonthlyCost() {
+  $("#totalMonthlyCost").css("background-color", "white");
   $("#totalMonthlyCost").empty();
   $("#totalMonthlyCost").append("Total Monthly: $", totMonthlyCost);
   if (totMonthlyCost > 20000) {
@@ -100,13 +104,22 @@ function displayEmployees() {
 function removeEmployee() {
   //identify object associated with clicked "delete" button
   let employeeToRemove = $(this).closest("tr").find(".employeeID").text();
-  for (i = 0; i < employees.length; i++) {
-    if (employeeToRemove === employees[i].id) {
-      //console.log(employeeToRemove);
-      employees.splice(employees[i], 1);
+  if (employeeToRemove) {
+    for (i = 0; i < employees.length; i++) {
+      if (employeeToRemove === employees[i].id) {
+        //console.log(employeeToRemove);
+        let removedEmployee = employees.splice(i, 1);
+        let removedMonthlySalary = removedEmployee[0].annualSalary / 12;
+        totMonthlyCost = totMonthlyCost - removedMonthlySalary;
+        console.log(totMonthlyCost);
+
+        console.log(removedEmployee);
+        console.log(removedMonthlySalary);
+      }
+      displayMonthlyCost();
     }
+    console.log(employees);
   }
-  console.log(employees);
 
   // remove row in DOM
   $(this).closest("tr").remove();
